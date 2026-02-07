@@ -11,6 +11,7 @@ Status mark:
 
 | |HIP|Name|Document|Discuss|
 |---|:---:|---|---:|---:|
+|❔|22|Upgrade HACD Inscriptions|[github ➚](/blob/main/HIP/diamond/Upgrade_HACD_Inscriptions.md)| | 
 |❔|21|Hacash Virtual Machine|[hvm.pdf ➚](https://hacash.com/hvm.pdf)|[X ➚](https://x.com/YouKenTrust/status/1921959644291031440) | 
 |❔|20|Issuance of Assets on Mainnet| |[hacashtalk ➚](https://hacashtalk.com/t/proposal-for-the-issuance-of-external-assets-on-the-hacash-mainnet-draft/338) | 
 |❔|18|HACD Minimum Bidding Fee|[github ➚](https://github.com/hacash/fullnode/issues/5#issuecomment-2626283210)|[github ➚](https://github.com/hacash/fullnode/issues/5)|
