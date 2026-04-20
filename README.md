@@ -4,6 +4,8 @@ Whitepaper & Documents & Hacash improvement proposals & theoretical articles
 
 - [Whitepaper](https://github.com/hacash/doc/blob/main/whitepaper.pdf)
 - [HIP Table (Hacash improvement proposals list)](https://github.com/hacash/doc/blob/main/HIP/HIP-table.md)
+- [Istanbul Upgrade](https://github.com/hacash/doc/blob/main/tech/istanbul_upgrade.md)
+- [Istanbul Upgrade Tech Info](https://github.com/hacash/doc/blob/main/tech/istanbul_upgrade_tech.md)
 
 ---
 
