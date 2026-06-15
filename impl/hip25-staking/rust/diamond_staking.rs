@@ -1,8 +1,8 @@
 //! HIP-25: Pure HACD Staking actions for hacash/rust
 //! Target: src/mint/action/diamond_staking.rs
 
-/// 40% of eligible inscription + transfer fees
-pub const STAKING_FEE_SHARE_PERCENT: u64 = 40;
+/// 22% of eligible inscription + transfer fees
+pub const STAKING_FEE_SHARE_PERCENT: u64 = 22;
 
 /// ~3 days cooldown after unstake request
 pub const COOLDOWN_BLOCKS: u64 = 864;
@@ -134,7 +134,7 @@ fn do_diamonds_unstake(
     Ok(vec![])
 }
 
-/// Redirect eligible fee: 40% to pool, remainder to burn path
+/// Redirect eligible fee: 22% to pool, remainder to burn path
 pub fn redirect_staking_fee(total_fee: Amount, state: &mut MintState) -> (Amount, Amount) {
     let total = total_fee.uint() as u64;
     let to_pool = total * STAKING_FEE_SHARE_PERCENT / 100;
