@@ -27,7 +27,25 @@ Companion to [HIP-25](../HIP/HIP-25_Pure_HACD_Staking.md). These files mirror `h
 
 ## HVM (`hacash/HVM`)
 
-Copy `hvm/StakeHacd.go` and `hvm/UnstakeHacd.go` into `action/` and register VMKind `0x01` / `0x02`.
+Integrated in branch `hip-25-staking`:
+
+| File | Role |
+|---|---|
+| `action/StakeHacd.go` | VMKind `0x01` |
+| `action/UnstakeHacd.go` | VMKind `0x02` |
+| `action/diamond_list.go` | `DiamondNameListMax200` wire parser |
+| `trait/staking.go` | `StakingHandler` + `TransactionContext` |
+| `extend/staking_call_executor.go` | `ExtendCallExecutor` for opcodes `0x01`–`0x02` |
+
+Wire format after opcode byte: `Uint1 count` + `count × 6` literal bytes.
+
+## RPC (implemented)
+
+| Endpoint | Description |
+|---|---|
+| `query/staking/status?diamond=` | Per-HACD staking status |
+| `query/staking/summary?address=` | Wallet staking summary |
+| `query/staking/global` | Global pool state |
 
 ## Constants (v1 locked)
 
