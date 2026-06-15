@@ -32,3 +32,4 @@ Status mark:
 |❔|3|Bitcoin Lending| |[discord ➚](https://discord.com/channels/757976908653920299/844038285260619797/845468880041541632)|
 |❔|2|HACD Mortgage Loan HAC| |[hacashtalk ➚](https://hacashtalk.com/t/diamond-mortgage-loan-proposal/117)|
 |🟩|1|HACD Bidding Fee Destruction|[github ➚](https://github.com/hacash/paper/blob/master/HIP/diamond/hacd_bidding_fee_destruction.md)|[discord ➚](https://discord.com/channels/757976908653920299/802807729584209920/816214555461812224)|
+| ❔ | 25 | Pure HACD Staking | [github ➚](https://github.com/Moskyera/doc/blob/main/HIP/HIP-25_Pure_HACD_Staking.md) |  | 
