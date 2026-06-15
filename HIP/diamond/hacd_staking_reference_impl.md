@@ -1,6 +1,6 @@
 # HIP-25 Reference Implementation Outline
 
-This document sketches the minimal code changes needed in `hacash/rust` (Mint layer) and `hacash/HVM` (external actions). It is a companion to [HIP-25](../HIP-25_Pure_HACD_Staking.md).
+This document sketches the minimal code changes needed in `hacash/rust` (Mint layer) and `hacash/HVM` (external actions). It is a companion to [HIP-25](../HIP/HIP-25_Pure_HACD_Staking.md).
 
 ## File map (proposed)
 
