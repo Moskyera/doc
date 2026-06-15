@@ -57,6 +57,23 @@ Wire format after opcode byte: `Uint1 count` + `count × 6` literal bytes.
 | `STAKE_HACD_VMKIND` | 0x01 |
 | `UNSTAKE_HACD_VMKIND` | 0x02 |
 
+## WASM SDK (HIP-25)
+
+| Function | Action kind | Description |
+|---|---|---|
+| `hacd_stake(chain_id, password, diamonds, fee, timestamp)` | 34 | Build + sign stake tx |
+| `hacd_unstake(chain_id, password, diamonds, fee, timestamp)` | 35 | Build + sign unstake tx |
+
+Build: `cargo build --release --features sdk --target wasm32-unknown-unknown --lib` (crate `hacash_sdk`).
+
+## Public testnet (local dev)
+
+See [hip25_testnet_boot.md](https://github.com/Moskyera/rust/blob/hip-25-staking/docs/hip25_testnet_boot.md) on branch `hip-25-staking`:
+
+- Wallet: `http://127.0.0.1:8083/hip25/wallet`
+- Seed: password `hip25test`, 5 HACD (`WTYUIA` … `MEKUIA`), 11 HAC
+- Scripts: `scripts/hip25_live_stake.ps1`, `scripts/hip25_wallet_e2e.ps1`
+
 ## Build & test
 
 ```bash

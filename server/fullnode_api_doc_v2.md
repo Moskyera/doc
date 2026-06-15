@@ -752,3 +752,36 @@ The use of HTTP round robin instead of TCP or WebSocket is mainly for the simpli
 Here's a 500-line Rust implementation of a multi-threaded mining client that displays hashrate statistics in real-time, which is a very clear example if you're a developer of Hacash mining or mining pools:
 
 [https://github.com/hacash/rust/blob/main/src/run/poworker.rs](https://github.com/hacash/rust/blob/main/src/run/poworker.rs)
+
+
+---
+
+## HIP-25 HACD Staking (branch `hip-25-staking`)
+
+### Wallet UI
+
+`GET /hip25/wallet` — browser wallet (badges: Available / Staked / Cooldown). Same origin as RPC (e.g. `http://127.0.0.1:8083/hip25/wallet`).
+
+### Query
+
+| Endpoint | Description |
+|---|---|
+| `GET /query/staking/status?diamond=WTYUIA` | Per-HACD status, accrued reward, min unstake height |
+| `GET /query/staking/summary?address=` | Staked / cooldown counts for address |
+| `GET /query/staking/global` | Activation height, pool, total shares |
+| `GET /query/staking/events?from=0&limit=20` | On-chain stake/unstake events |
+
+### Transactions
+
+Build via `POST /create/transaction` with actions:
+
+```js
+{ kind: 34, diamonds: "WTYUIA,HXVMEK" }  // stake
+{ kind: 35, diamonds: "WTYUIA" }          // unstake
+```
+
+WASM SDK: `hacd_stake` / `hacd_unstake` (see `docs/hip25_testnet_boot.md` in Moskyera/rust).
+
+### Local testnet boot
+
+Copy `hacash.config.ini.example`, set `hip25_testnet_seed = true`, run fullnode + `hacash poworker`. Seeded dev account: password `hip25test`, five HACD literals, 11 HAC.
