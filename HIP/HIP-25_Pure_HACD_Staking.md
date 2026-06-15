@@ -454,4 +454,4 @@ Possible extensions if HIP-25 is accepted:
 
 Comment on the GitHub PR or open a discussion thread. Core v1 parameters are locked (see [Resolved Parameters](#resolved-parameters-v1)). Remaining open topic for HIP-26: inscription-weighted reward boosts.
 
-**Status:** Draft — reference implementation in progress.
+**Status:** Draft — implementation ready for testnet review (branch `hip-25-staking` on [Moskyera/rust](https://github.com/Moskyera/rust) and [Moskyera/HVM](https://github.com/Moskyera/HVM); 10 Mint integration tests passing).
