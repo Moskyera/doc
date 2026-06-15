@@ -20,7 +20,7 @@ Companion to [HIP-25](../HIP/HIP-25_Pure_HACD_Staking.md). These files mirror `h
    - Reject transfer/inscribe when status is staked or cooldown
 
 5. **`src/mint/operate/diamond.rs` + `diamond_insc.rs`**
-   - Redirect 22% protocol fees to staking pool
+   - Redirect 13% protocol fees to staking pool
 
 6. **`src/mint/component/block.rs` (or block close hook)**
    - Call `distribute_rewards()` and `finalize_cooldowns()`
@@ -51,7 +51,7 @@ Wire format after opcode byte: `Uint1 count` + `count × 6` literal bytes.
 
 | Name | Value |
 |---|---|
-| `STAKING_FEE_SHARE` | 22 |
+| `STAKING_FEE_SHARE` | 13 |
 | `COOLDOWN_BLOCKS` | 864 |
 | `MIN_STAKE_BLOCKS` | 25714 |
 | `STAKE_HACD_VMKIND` | 0x01 |

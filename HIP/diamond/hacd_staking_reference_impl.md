@@ -11,7 +11,7 @@ hacash/rust/
     state.rs            # StakingRecord, GlobalStakingState
     tx.rs               # validate + apply stake/unstake
     rewards.rs          # index accrual, per-block distribution
-    fees.rs             # redirect 22% eligible fees to pool
+    fees.rs             # redirect 13% eligible fees to pool
     unlock.rs           # cooldown completion at block close
 
 hacash/HVM/

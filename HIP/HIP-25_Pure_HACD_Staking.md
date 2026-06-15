@@ -86,7 +86,7 @@ If the community accepts this HIP, richer features (delegation, tiered rewards, 
 | `COOLDOWN_BLOCKS` | `864` | ~3 days |
 | `MIN_STAKE_BLOCKS` | `25714` | ~90 days (3 months); must be staked before unstake |
 | `MAX_STAKE_BATCH` | `200` | aligned with max HACD transfer batch |
-| `STAKING_FEE_SHARE` | `22%` | share of eligible fees routed to reward pool (both sources) |
+| `STAKING_FEE_SHARE` | `13%` | share of eligible fees routed to reward pool (both sources) |
 | `ACTIVATION_TIMELOCK` | `30 days` | before mainnet enable after release |
 | `STAKE_HACD_VMKIND` | `0x01` | HVM external action opcode |
 | `UNSTAKE_HACD_VMKIND` | `0x02` | HVM external action opcode |
@@ -152,8 +152,8 @@ Rewards are **not minted**. They are funded by redirecting a fixed share of exis
 
 | Source | Current behavior (baseline) | HIP-25 redirect |
 |---|---|---|
-| HACD inscription **protocol fee** (HIP-15) | Burned | `22%` → staking pool; `78%` → burn (unchanged effective burn reduction) |
-| HACD transfer tx fee | `90%` burned | `22%` of total transfer fee → staking pool; `78%` follows existing burn/miner split |
+| HACD inscription **protocol fee** (HIP-15) | Burned | `13%` → staking pool; `87%` → burn (unchanged effective burn reduction) |
+| HACD transfer tx fee | `90%` burned | `13%` of total transfer fee → staking pool; `87%` follows existing burn/miner split |
 | HACD bidding / mining fees | Burn + miner | **unchanged** |
 | Inscription gas fee | `90%` burned | **unchanged** (only protocol fee portion is partially redirected) |
 
@@ -420,7 +420,7 @@ Explorer SHOULD show a staking badge on staked literals and filter "staked / ava
 
 | Parameter | Decision |
 |---|---|
-| Fee redirect | `22%` on inscription protocol fees **and** `22%` on HACD transfer fees |
+| Fee redirect | `13%` on inscription protocol fees **and** `13%` on HACD transfer fees |
 | Early claim | **Not in v1** — rewards paid only at cooldown unlock |
 | Minimum stake age | `25714` blocks (~3 months) before unstake |
 | HVM opcodes | `STAKE_HACD = 0x01`, `UNSTAKE_HACD = 0x02` |
