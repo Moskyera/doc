@@ -62,7 +62,7 @@ If the community accepts this HIP, richer features (delegation, tiered rewards, 
 1. **Opt-in only** — unstaked HACD behavior is unchanged.
 2. **No new assets** — rewards are paid in native HAC only.
 3. **Minimal state** — one staking record per HACD literal; global counters for reward math.
-4. **Fee-funded, not inflation-funded** — rewards come from redirected existing fees, not new coinbase issuance.
+4. **Fee-funded, not inflation-funded** — rewards come from redirected existing fees, not new coinbase issuance. **v2:** only HIP-15 inscription protocol fees (not transfer fees); undistributed pool burns when no stakers (HIP-11 alignment).
 5. **HACD stays non-fungible** — staking locks specific literals; there is no staking receipt token.
 6. **Start simple** — no fixed terms, no pools, no liquid staking.
 
@@ -86,7 +86,8 @@ If the community accepts this HIP, richer features (delegation, tiered rewards, 
 | `COOLDOWN_BLOCKS` | `864` | ~3 days |
 | `MIN_STAKE_BLOCKS` | `25714` | ~90 days (3 months); must be staked before unstake |
 | `MAX_STAKE_BATCH` | `200` | aligned with max HACD transfer batch |
-| `STAKING_FEE_SHARE` | `13%` | share of eligible fees routed to reward pool (both sources) |
+| `STAKING_FEE_SHARE` | `10%` | share of HIP-15 inscription protocol fees routed to reward pool |
+| `POOL_SWEEP_BLOCKS` | `1008` | burn undistributed pool if zero stakers this many consecutive blocks |
 | `ACTIVATION_TIMELOCK` | `30 days` | before mainnet enable after release |
 | `STAKE_HACD_VMKIND` | `0x01` | HVM external action opcode |
 | `UNSTAKE_HACD_VMKIND` | `0x02` | HVM external action opcode |
@@ -150,12 +151,12 @@ Rewards are **not minted**. They are funded by redirecting a fixed share of exis
 
 ### Eligible fee sources
 
-| Source | Current behavior (baseline) | HIP-25 redirect |
+| Source | Current behavior (baseline) | HIP-25 v2 redirect |
 |---|---|---|
-| HACD inscription **protocol fee** (HIP-15) | Burned | `13%` → staking pool; `87%` → burn (unchanged effective burn reduction) |
-| HACD transfer tx fee | `90%` burned | `13%` of total transfer fee → staking pool; `87%` follows existing burn/miner split |
+| HACD inscription **protocol fee** (HIP-15) | Burned | `10%` → staking pool; `90%` → burn |
+| HACD transfer tx fee | `90%` burned | **unchanged** (no redirect — v2 economics) |
 | HACD bidding / mining fees | Burn + miner | **unchanged** |
-| Inscription gas fee | `90%` burned | **unchanged** (only protocol fee portion is partially redirected) |
+| Inscription gas fee | `90%` burned | **unchanged** |
 
 ### Accounting
 
@@ -166,7 +167,14 @@ pool_deposit(B) = sum of redirected fees from all eligible txs in block B
 reward_pool_balance += pool_deposit(B)
 ```
 
-If `reward_pool_balance == 0` or `total_staked_shares == 0`, no rewards are distributed that block (fees still accumulate in the pool).
+If `reward_pool_balance == 0` or `total_staked_shares == 0`, no rewards are distributed that block (fees still accumulate in the pool). If `total_staked_shares == 0` for `POOL_SWEEP_BLOCKS` consecutive blocks, the pool is **burned** (counted in `diamond_insc_burn_zhu`) rather than left indefinitely outside circulation.
+
+### HIP-11 / HIP-2 alignment (v2)
+
+- **Not coinbase issuance** — no new HAC minted; only a partial redirect of fees that would otherwise burn.
+- **Unlike HIP-2** — no mortgage loan, no principal+interest repayment loop; HIP-25 remains a simpler lock-and-earn primitive.
+- **Supply transparency** — on-chain counters: `cumulative_deposit_zhu`, `cumulative_paid_zhu`, `cumulative_pool_burned_zhu` (see `/query_global_staking`).
+- **Mainnet** requires community economic consensus per HIP-11 before `staking_activation_height` is set.
 
 ---
 
@@ -211,7 +219,7 @@ Rounding dust (< 1 satoshi equivalent) stays in the pool.
 
 APR is **variable** and depends on:
 
-- inscription + transfer activity
+- inscription protocol fee activity
 - total staked supply
 - fee market
 
@@ -420,7 +428,8 @@ Explorer SHOULD show a staking badge on staked literals and filter "staked / ava
 
 | Parameter | Decision |
 |---|---|
-| Fee redirect | `13%` on inscription protocol fees **and** `13%` on HACD transfer fees |
+| Fee redirect | `10%` on inscription protocol fees only; **no** HACD transfer fee redirect |
+| Idle pool | Burn after `1008` blocks with zero stakers |
 | Early claim | **Not in v1** — rewards paid only at cooldown unlock |
 | Minimum stake age | `25714` blocks (~3 months) before unstake |
 | HVM opcodes | `STAKE_HACD = 0x01`, `UNSTAKE_HACD = 0x02` |
